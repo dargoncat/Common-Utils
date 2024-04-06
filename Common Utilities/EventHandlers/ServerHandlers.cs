@@ -148,7 +148,7 @@ namespace Common_Utilities.EventHandlers
                     if (!plugin.AfkDict.ContainsKey(player))
                         plugin.AfkDict.Add(player, new Tuple<int, Vector3>(0, player.Position));
 
-                    if (player.Role.IsDead || player.IsGodModeEnabled || player.IsNoclipPermitted || player.Role is FpcRole { IsGrounded: false } || player.RemoteAdminPermissions.HasFlag(PlayerPermissions.AFKImmunity) || plugin.Config.AfkIgnoredRoles.Contains(player.Role.Type))
+                    if (player.Role.IsDead || player.IsGodModeEnabled || player.IsNoclipPermitted || player.Role is FpcRole { IsGrounded: false } || ((player.Group == null) && (player.Group.Permissions & (ulong)PlayerPermissions.AFKImmunity) != 0) || plugin.Config.AfkIgnoredRoles.Contains(player.Role.Type))
                     {
 #pragma warning disable SA1013 // Closing braces should be spaced correctly
                         Log.Debug($"Player {player.Nickname} ({player.Role.Type}) is not a checkable player. NoClip: {player.IsNoclipPermitted} GodMode: {player.IsGodModeEnabled} IsNotGrounded: {player.Role is FpcRole { IsGrounded: false }} AFKImunity: {player.RemoteAdminPermissions.HasFlag(PlayerPermissions.AFKImmunity)}");
